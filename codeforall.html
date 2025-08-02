@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeForAll - Support Coding Education for Everyone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .donation-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-donate {
+            background: linear-gradient(45deg, #ff4444, #ff8800);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 68, 68, 0.5);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .btn-donate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 68, 68, 0.7);
+            background: linear-gradient(45deg, #ff3333, #ff7700);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Email Signup Styles */
+        .email-signup {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .email-signup h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .email-signup p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-input {
+            padding: 12px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-subscribe {
+            background: linear-gradient(45deg, #ffa500, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: fit-content;
+        }
+
+        .btn-subscribe:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
+        }
+
+        .btn-subscribe:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message {
+            margin-top: 1rem;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .message.success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.5);
+            color: #4CAF50;
+        }
+
+        .message.error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.5);
+            color: #f44336;
+        }
+
+        .mission {
+            padding: 100px 0;
+            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .mission-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .section-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        .sticky-donate {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .sticky-donate:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 4px 25px rgba(255, 107, 107, 0.6); }
+            100% { box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4); }
+        }
+
+        .section-cta {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #eee;
+        }
+
+        .impact {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .impact-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 20px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .impact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .donation-levels {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .donation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .donation-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .donation-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .donation-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffa500;
+        }
+
+        .donation-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .floating-code {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-family: 'Courier New', monospace;
+            animation: floatCode 15s linear infinite;
+            font-size: 1.2rem;
+        }
+
+        @keyframes floatCode {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .donation-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .amount-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .amount-btn {
+            padding: 1rem;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .amount-btn:hover,
+        .amount-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .custom-amount {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+
+        .custom-amount:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .progress-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .progress-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .fundraising-goal h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .progress-bar-container {
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .progress-description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+
+        .milestones {
+            margin-top: 3rem;
+        }
+
+        .milestones h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .milestone-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: left;
+        }
+
+        .milestone {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #ccc;
+        }
+
+        .milestone-amount {
+            font-weight: 700;
+            color: #667eea;
+            min-width: 100px;
+        }
+
+        .milestone-desc {
+            color: #555;
+        }
+
+        .donor-message {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .donor-input {
+            border: none;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            border: 2px solid #ddd;
+            min-width: 150px;
+        }
+
+        .donor-input:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            margin: 0 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .modal-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .modal-close {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Funding Breakdown Styles */
+        .funding-breakdown {
+            padding: 100px 0;
+            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .breakdown-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .breakdown-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 1rem;
+        }
+
+        .breakdown-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .visual-section {
+            text-align: center;
+        }
+
+        .pie-chart-modern {
+            margin-bottom: 2rem;
+        }
+
+        .chart-center-text {
+            font-size: 18px;
+            font-weight: 600;
+            fill: #333;
+        }
+
+        .chart-center-small {
+            font-size: 14px;
+            fill: #666;
+        }
+
+        .pie-slice-main,
+        .pie-slice-admin {
+            transition: all 0.3s ease;
+        }
+
+        .fund-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .program-color {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .admin-color {
+            background: linear-gradient(45deg, #ffa500, #ff6b6b);
+        }
+
+        .legend-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .legend-percentage {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .legend-label {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .breakdown-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .breakdown-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .breakdown-color {
+            width: 8px;
+            height: 100%;
+            min-height: 120px;
+            border-radius: 4px;
+        }
+
+        .breakdown-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .breakdown-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .breakdown-info li {
+            padding: 0.5rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .breakdown-info li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .transparency-note {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+
+        .transparency-note h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .transparency-note p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .donation-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .amount-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .breakdown-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .donor-message {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .donor-input {
+                min-width: 200px;
+            }
+
+            .email-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .form-group {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Coming Soon Modal -->
+    <div id="comingSoonModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon">🚧</div>
+            <h3>Coming Soon!</h3>
+            <p>We're not quite ready to accept donations yet, but we're working hard to launch our platform!</p>
+            <p>Thank you for your interest in supporting coding education for all ages. Please check back soon!</p>
+            <button class="modal-close" onclick="closeModal()">Got it!</button>
+        </div>
+    </div>
+
+    <!-- Sticky Donation Button -->
+    <a href="#donate" class="sticky-donate">💝 Donate</a>
+
+    <section class="hero">
+        <div class="floating-elements">
+            <div class="floating-code" style="left: 10%; animation-delay: 0s;">function changeLife() {}</div>
+            <div class="floating-code" style="left: 20%; animation-delay: 2s;">if (opportunity) { learn(); }</div>
+            <div class="floating-code" style="left: 30%; animation-delay: 4s;">const future = coding;</div>
+            <div class="floating-code" style="left: 40%; animation-delay: 6s;">while (learning) { grow(); }</div>
+            <div class="floating-code" style="left: 50%; animation-delay: 8s;">let dreams = achievable;</div>
+            <div class="floating-code" style="left: 60%; animation-delay: 10s;">for (everyone in world) { }</div>
+            <div class="floating-code" style="left: 70%; animation-delay: 12s;">age.never.matters</div>
+            <div class="floating-code" style="left: 80%; animation-delay: 14s;">// Make a difference</div>
+        </div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <h1>CodeForAll</h1>
+                <p>Help us make coding education accessible to everyone</p>
+                <p>Your donation breaks down barriers and opens doors to the digital future</p>
+                
+                <div class="donation-buttons">
+                    <a href="#donate" class="btn btn-donate">Donate Now</a>
+                    <a href="#mission" class="btn btn-secondary">Learn More</a>
+                </div>
+
+                <!-- Email Signup Section -->
+                <div class="email-signup">
+                    <h3>📧 Stay Updated on Our Progress</h3>
+                    <p>Be the first to hear about new programs, success stories, and ways you can help make coding accessible to everyone!</p>
+                    
+                    <form class="email-form" id="emailSignupForm">
+                        <div class="form-group">
+                            <label for="subscriberName">Name (Optional)</label>
+                            <input type="text" id="subscriberName" name="name" placeholder="Your name" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="subscriberEmail">Email Address *</label>
+                            <input type="email" id="subscriberEmail" name="email" placeholder="your@email.com" class="form-input" required>
+                        </div>
+                        <button type="submit" class="btn-subscribe" id="subscribeBtn">
+                            Subscribe for Updates 🚀
+                        </button>
+                    </form>
+                    
+                    <div id="emailMessage" class="message" style="display: none;"></div>
+                </div>
+                
+                <div class="section-cta">
+                    <a href="#donate" class="btn btn-donate">Help Us Make Coding Accessible 🚀</a>
+                </div>
+                
+                <div class="section-cta">
+                    <a href="#donate" class="btn btn-donate">Start Changing Lives Today 💝</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mission" id="mission">
+        <div class="container">
+            <div class="mission-content">
+                <h2 class="section-title">Why We Started CodeForAll</h2>
+                <p class="section-text">
+                    Growing up, I dreamed of creating websites and apps, but expensive courses and complicated jargon blocked my way.
+                </p>
+                <p class="section-text">
+                    When free resources emerged, they were scattered or too advanced, leaving millions—kids, career changers, seniors facing the same barriers.
+                </p>
+                <p class="section-text">
+                    <strong>CodeForAll exists to create new pathways.</strong>
+                </p>
+                <p class="section-text">
+                    We believe coding education should be <strong>free, accessible, and welcoming to everyone</strong>, no matter your age or background.
+                </p>
+                <p class="section-text">
+                    Your donation helps us remove financial barriers and create spaces where anyone can discover the joy of coding.
+                </p>
+                
+                <div class="donation-buttons">
+                    <a href="#donate" class="btn btn-donate">Donate Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="progress-section" id="progress">
+        <div class="container">
+            <h2 class="section-title">Our Progress</h2>
+            <div class="progress-content">
+                <div class="fundraising-goal">
+                    <h3>Current Fundraising Goal: $50,000</h3>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%" id="progressFill"></div>
+                        </div>
+                        <div class="progress-stats">
+                            <span class="raised-amount" id="raisedAmount">$0 raised</span>
+                            <span class="goal-amount">Goal: $50,000</span>
+                        </div>
+                    </div>
+                    <p class="progress-description">
+                        Help us reach our first milestone to launch free coding workshops in 5 communities and provide equipment access to 100 learners of all ages.
+                    </p>
+                </div>
+                
+                <div class="milestones">
+                    <h3>Upcoming Milestones</h3>
+                    <div class="milestone-list">
+                        <div class="milestone">
+                            <span class="milestone-amount">$10,000</span>
+                            <span class="milestone-desc">Launch our first community workshop</span>
+                        </div>
+                        <div class="milestone">
+                            <span class="milestone-amount">$25,000</span>
+                            <span class="milestone-desc">Provide tablets for mobile learning</span>
+                        </div>
+                        <div class="milestone">
+                            <span class="milestone-amount">$50,000</span>
+                            <span class="milestone-desc">Establish 5 permanent learning centers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="impact">
+        <div class="container">
+            <h2 class="section-title">Your Impact</h2>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>🎓 Educational Resources</h3>
+                    <p>Fund the development of age-appropriate coding curricula, from visual programming for kids to practical automation for seniors.</p>
+                </div>
+                
+                <div class="impact-card">
+                    <h3>💻 Equipment Access</h3>
+                    <p>Provide computers, tablets, and internet access to learners who might not otherwise have the tools to participate in coding education.</p>
+                </div>
+                
+                <div class="impact-card">
+                    <h3>👨‍🏫 Instructor Training</h3>
+                    <p>Train educators to teach coding effectively across different age groups, understanding the unique needs and learning styles of each generation.</p>
+                </div>
+                
+                <div class="impact-card">
+                    <h3>🏢 Community Programs</h3>
+                    <p>Establish coding clubs in libraries, community centers, and senior centers, bringing technology education directly to local communities.</p>
+                </div>
+                
+                <div class="impact-card">
+                    <h3>🤝 Mentorship Networks</h3>
+                    <p>Connect experienced programmers with new learners, creating intergenerational knowledge sharing and support systems.</p>
+                </div>
+                
+                <div class="impact-card">
+                    <h3>🌐 Accessibility Features</h3>
+                    <p>Develop tools and resources that make coding education accessible to people with disabilities and different learning needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="funding-breakdown">
+        <div class="container">
+            <div class="breakdown-header">
+                <h2 class="section-title">Funding Transparency</h2>
+                <p class="breakdown-subtitle">
+                    We believe in complete transparency about how your donations create impact
+                </p>
+            </div>
+            
+            <div class="breakdown-container">
+                <div class="visual-section">
+                    <div class="pie-chart-modern">
+                        <svg viewBox="0 0 200 200" width="280" height="280">
+                            <!-- Background circle -->
+                            <circle cx="100" cy="100" r="80" fill="#f8f9fa" stroke="#e9ecef" stroke-width="2"></circle>
+                            
+                            <!-- 90% slice -->
+                            <circle cx="100" cy="100" r="70" 
+                                    fill="none" 
+                                    stroke="url(#programGradient)" 
+                                    stroke-width="25"
+                                    stroke-dasharray="396 44"
+                                    stroke-dashoffset="0"
+                                    transform="rotate(-90 100 100)"
+                                    class="pie-slice-main">
+                            </circle>
+                            
+                            <!-- 10% slice -->
+                            <circle cx="100" cy="100" r="70" 
+                                    fill="none" 
+                                    stroke="url(#adminGradient)" 
+                                    stroke-width="25"
+                                    stroke-dasharray="44 396"
+                                    stroke-dashoffset="-396"
+                                    transform="rotate(-90 100 100)"
+                                    class="pie-slice-admin">
+                            </circle>
+                            
+                            <!-- Gradients -->
+                            <defs>
+                                <linearGradient id="programGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#667eea"/>
+                                    <stop offset="100%" style="stop-color:#764ba2"/>
+                                </linearGradient>
+                                <linearGradient id="adminGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ffa500"/>
+                                    <stop offset="100%" style="stop-color:#ff6b6b"/>
+                                </linearGradient>
+                            </defs>
+                            
+                            <!-- Center content -->
+                            <text x="100" y="90" text-anchor="middle" class="chart-center-text">Every</text>
+                            <text x="100" y="110" text-anchor="middle" class="chart-center-text">Dollar</text>
+                            <text x="100" y="125" text-anchor="middle" class="chart-center-small">Counts</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="fund-legend">
+                        <div class="legend-item">
+                            <div class="legend-color program-color"></div>
+                            <div class="legend-text">
+                                <span class="legend-percentage">90%</span>
+                                <span class="legend-label">Program Funding</span>
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color admin-color"></div>
+                            <div class="legend-text">
+                                <span class="legend-percentage">10%</span>
+                                <span class="legend-label">Administrative Costs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="breakdown-details">
+                    <div class="breakdown-item">
+                        <div class="breakdown-color" style="background: #667eea;"></div>
+                        <div class="breakdown-info">
+                            <h3>90% - Direct Program Funding</h3>
+                            <ul>
+                                <li>Free coding workshops and classes</li>
+                                <li>Learning materials and curriculum development</li>
+                                <li>Computers and equipment for students</li>
+                                <li>Instructor training and certification</li>
+                                <li>Community outreach programs</li>
+                                <li>Mentorship program coordination</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="breakdown-item">
+                        <div class="breakdown-color" style="background: #ffa500;"></div>
+                        <div class="breakdown-info">
+                            <h3>10% - Organizational Support</h3>
+                            <ul>
+                                <li>Website maintenance and hosting</li>
+                                <li>Payment processing fees</li>
+                                <li>Basic administrative costs</li>
+                                <li>Legal and compliance requirements</li>
+                                <li>Fundraising and outreach efforts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="transparency-note">
+                <h4>Our Commitment to Transparency</h4>
+                <p>We publish detailed financial reports quarterly and are committed to keeping administrative costs as low as possible. Every dollar matters when it comes to making coding education accessible to everyone.</p>
+            </div>
+            
+            <div class="section-cta">
+                <a href="#donate" class="btn btn-donate">Support Our Mission 💪</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="donation-levels" id="donate">
+        <div class="container">
+            <h2 class="section-title">Make a Difference</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
+                Every donation, no matter the size, helps us reach more learners
+            </p>
+            
+            <div class="donation-form">
+                <h3 style="text-align: center; margin-bottom: 1rem; color: #333;">Choose Your Donation Amount</h3>
+                
+                <div class="donor-message">
+                    <label for="donorName">I am</label>
+                    <input type="text" id="donorName" placeholder="Enter your name" class="donor-input">
+                    <span>donating to help people learn coding</span>
+                </div>
+                
+                <div class="amount-buttons">
+                    <button class="amount-btn" onclick="selectAmount(25)">$25</button>
+                    <button class="amount-btn" onclick="selectAmount(50)">$50</button>
+                    <button class="amount-btn" onclick="selectAmount(100)">$100</button>
+                    <button class="amount-btn" onclick="selectAmount(250)">$250</button>
+                    <button class="amount-btn" onclick="selectAmount(500)">$500</button>
+                    <button class="amount-btn" onclick="selectAmount(1000)">$1000</button>
+                </div>
+                
+                <input type="number" class="custom-amount" placeholder="Enter custom amount" id="customAmount" onchange="selectCustomAmount()">
+                
+                <button class="btn btn-donate" style="width: 100%; margin-top: 1rem;" onclick="processDonation()">
+                    Donate Now
+                </button>
+                
+                <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                    Secure donation processing • Tax-deductible
+                </p>
+            </div>
+
+            <div class="donation-grid" style="margin-top: 4rem;">
+                <div class="donation-card">
+                    <div class="donation-amount">$25</div>
+                    <h3>Code Starter</h3>
+                    <p>Provides basic coding materials and resources for one learner for a month.</p>
+                </div>
+                
+                <div class="donation-card">
+                    <div class="donation-amount">$100</div>
+                    <h3>Learning Enabler</h3>
+                    <p>Sponsors a complete beginner course including mentorship support for one person.</p>
+                </div>
+                
+                <div class="donation-card">
+                    <div class="donation-amount">$500</div>
+                    <h3>Community Builder</h3>
+                    <p>Funds a local coding workshop bringing together learners from different generations.</p>
+                </div>
+                
+                <div class="donation-card">
+                    <div class="donation-amount">$1000</div>
+                    <h3>Program Sponsor</h3>
+                    <p>Establishes a complete coding program in a community center or library for a year.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer">
+        <div class="container">
+            <h3>Join the Movement</h3>
+            <p>Help us prove that coding has no age limit</p>
+            <div class="donation-buttons" style="margin-top: 2rem;">
+                <a href="#donate" class="btn btn-donate">Donate Today</a>
+                <a href="#progress" class="btn btn-secondary">View Progress</a>
+            </div>
+            <div style="margin-top: 3rem; opacity: 0.8;">
+                <p>&copy; 2025 CodeForAll. Registered Charity. Breaking down barriers, building up communities.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Configuration - Update these URLs to match your backend
+        const API_BASE_URL = 'http://localhost:3000/api'; // Change this to your server URL
+        
+        // Email subscription functionality
+        document.getElementById('emailSignupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('subscriberName').value.trim();
+            const email = document.getElementById('subscriberEmail').value.trim();
+            const messageDiv = document.getElementById('emailMessage');
+            const submitBtn = document.getElementById('subscribeBtn');
+            
+            // Validate email
+            if (!email || !email.includes('@')) {
+                showMessage('Please enter a valid email address.', 'error');
+                return;
+            }
+            
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Subscribing...';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/subscribe`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: name || null,
+                        email: email,
+                        source: 'website_hero'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showMessage('🎉 Successfully subscribed! Check your email for a welcome message.', 'success');
+                    document.getElementById('emailSignupForm').reset();
+                } else {
+                    if (response.status === 409) {
+                        showMessage('You\'re already subscribed to our updates!', 'error');
+                    } else {
+                        showMessage(data.error || 'Something went wrong. Please try again.', 'error');
+                    }
+                }
+            } catch (error) {
+                console.error('Subscription error:', error);
+                showMessage('Connection error. Please check your internet connection and try again.', 'error');
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Subscribe for Updates 🚀';
+            }
+        });
+        
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('emailMessage');
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            // Hide message after 5 seconds for success, 8 seconds for error
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, type === 'success' ? 5000 : 8000);
+        }
+
+        // Load donation statistics
+        async function loadStats() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/stats`);
+                if (response.ok) {
+                    const stats = await response.json();
+                    
+                    // Update progress bar
+                    const totalRaised = stats.totalRaised || 0;
+                    const goal = 50000;
+                    const percentage = Math.min((totalRaised / goal) * 100, 100);
+                    
+                    document.getElementById('progressFill').style.width = `${percentage}%`;
+                    document.getElementById('raisedAmount').textContent = `${totalRaised.toLocaleString()} raised`;
+                }
+            } catch (error) {
+                console.error('Failed to load stats:', error);
+                // Silently fail - don't show error to user for stats
+            }
+        }
+
+        // Call loadStats when page loads
+        document.addEventListener('DOMContentLoaded', loadStats);
+
+        function processDonation() {
+            showComingSoonModal();
+        }
+
+        function showComingSoonModal() {
+            document.getElementById('comingSoonModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('comingSoonModal').style.display = 'none';
+        }
+
+        // Show modal on page load
+        window.addEventListener('load', function() {
+            setTimeout(showComingSoonModal, 1000);
+        });
+
+        // Show modal when clicking any donation button
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-donate') || 
+                e.target.classList.contains('sticky-donate') ||
+                e.target.classList.contains('amount-btn')) {
+                e.preventDefault();
+                showComingSoonModal();
+            }
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('comingSoonModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        let selectedAmount = 0;
+
+        function selectAmount(amount) {
+            selectedAmount = amount;
+            document.getElementById('customAmount').value = '';
+            
+            // Update button states
+            document.querySelectorAll('.amount-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
+        }
+
+        function selectCustomAmount() {
+            const customValue = document.getElementById('customAmount').value;
+            if (customValue) {
+                selectedAmount = parseInt(customValue);
+                document.querySelectorAll('.amount-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+        }
+
+        function processDonation() {
+            const donorName = document.getElementById('donorName').value;
+            if (selectedAmount > 0) {
+                const message = donorName 
+                    ? `Thank you ${donorName} for your generous donation of ${selectedAmount} to help people learn coding! You'll be redirected to our secure payment processor.`
+                    : `Thank you for your generous donation of ${selectedAmount}! You'll be redirected to our secure payment processor.`;
+                alert(message);
+                // In a real implementation, this would redirect to a payment processor
+            } else {
+                alert('Please select or enter a donation amount.');
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add floating animation to cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.impact-card, .donation-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Create floating code elements
+        function createFloatingCode() {
+            const codes = [
+                'function help() { donate(); }',
+                'if (generous) { change_world(); }',
+                'const impact = your_donation;',
+                'while(learning) { grow(); }',
+                'let opportunity = accessible;',
+                '// Every donation counts',
+                'age.never.stops.learning()',
+                'for (all in community) { support(); }'
+            ];
+            
+            setInterval(() => {
+                const code = codes[Math.floor(Math.random() * codes.length)];
+                const element = document.createElement('div');
+                element.className = 'floating-code';
+                element.textContent = code;
+                element.style.left = Math.random() * 90 + '%';
+                element.style.animationDelay = '0s';
+                element.style.animationDuration = (15 + Math.random() * 10) + 's';
+                
+                document.querySelector('.floating-elements').appendChild(element);
+                
+                setTimeout(() => {
+                    element.remove();
+                }, 25000);
+            }, 4000);
+        }
+
+        createFloatingCode();
+    </script>
+</body>
+</html>
